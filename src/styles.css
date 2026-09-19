@@ -165,15 +165,31 @@
 }
 
 @keyframes route-flow { to { stroke-dashoffset: -32; } }
-@keyframes soft-pulse { 50% { opacity: .45; transform: scale(1.45); } }
+@keyframes soft-pulse { 50% { opacity: .35; transform: scale(1.4); } }
+@keyframes status-pulse { 50% { opacity: .45; } }
 @keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(800%); } }
-@keyframes event-enter { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes event-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes banner-enter { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes focal-breathe { 50% { opacity: .55; } }
 
 @utility route-flow { animation: route-flow 1.1s linear infinite; }
-@utility soft-pulse { animation: soft-pulse 1.5s ease-in-out infinite; }
-@utility map-scan { animation: scan 7s linear infinite; }
-@utility event-enter { animation: event-enter .35s ease-out both; }
+@utility soft-pulse { animation: soft-pulse 1.8s ease-in-out infinite; }
+@utility status-pulse { animation: status-pulse 2.2s ease-in-out infinite; }
+@utility map-scan { animation: scan 9s linear infinite; }
+@utility event-enter { animation: event-enter .4s cubic-bezier(.2,.7,.2,1) both; }
+@utility banner-enter { animation: banner-enter .45s cubic-bezier(.2,.7,.2,1) both; }
+@utility focal-breathe { animation: focal-breathe 3s ease-in-out infinite; }
+
+/* Focal panel: the only surface allowed a glow. Everything else stays flat. */
+@utility panel-focal {
+  border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 12%, transparent), 0 24px 60px -20px oklch(0 0 0 / .6);
+}
+@utility panel-quiet { background: var(--panel); border: 1px solid color-mix(in oklab, var(--border) 70%, transparent); }
+@utility numeric { font-family: var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+@utility ease-command { transition-timing-function: cubic-bezier(.2,.7,.2,1); }
+@utility press { &:active { transform: translateY(1px) scale(.985); } }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
